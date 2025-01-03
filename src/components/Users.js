@@ -3,12 +3,6 @@ import User from './User';
 
 import classes from './Users.module.css';
 
-const DUMMY_USERS = [
-  { id: 'u1', name: 'Max' },
-  { id: 'u2', name: 'Manuel' },
-  { id: 'u3', name: 'Julie' },
-];
-
 class Users extends Component {
   constructor() {
     super();
@@ -16,13 +10,19 @@ class Users extends Component {
       showUsers: true,
     };
   }
+
+  componentDidUpdate() {
+    if (this.props.users.length === 0) {
+      throw new Error('No users provided!');
+    }
+  }
+
   toggleUsersHandler() {
     this.setState((curState) => {
       return { showUsers: !curState.showUsers };
     });
   }
   render() {
-
     const usersList = (
       <ul>
         {this.props.users.map((user) => (
